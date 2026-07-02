@@ -17,6 +17,9 @@ class Formatter:
         if song.album:
             parts.append(song.album)
 
+        if song.lyrics:
+            parts.append(song.lyrics)
+
         if song.release_date:
             parts.append(song.release_date)
 

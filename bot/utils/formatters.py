@@ -19,6 +19,9 @@ def format_song_inline(song: Song) -> str:
     if song.release_date:
         parts.append(f"📅 {song.release_date}")
 
+    if song.lyrics:
+        parts.append(f"📝 {song.lyrics}")
+
     if song.url:
         parts.append(f"\n🔗 {song.url}")
 

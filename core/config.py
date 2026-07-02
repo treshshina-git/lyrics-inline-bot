@@ -21,7 +21,7 @@ def _env(name: str, default: str | None = None) -> str:
 class TelegramSettings:
     token: str = _env("TELEGRAM_TOKEN")
     inline_results_per_page: int = int(
-        os.getenv("INLINE_RESULTS_PER_PAGE", "6")
+        os.getenv("INLINE_RESULTS_PER_PAGE", "15")
     )
 
 
@@ -29,7 +29,7 @@ class TelegramSettings:
 class GeniusSettings:
     token: str = _env("GENIUS_TOKEN")
     search_limit: int = min(
-        int(os.getenv("GENIUS_SEARCH_LIMIT", "24")),
+        int(os.getenv("GENIUS_SEARCH_LIMIT", "45")),
         24,
     )
     timeout: int = int(os.getenv("GENIUS_TIMEOUT", "15"))
