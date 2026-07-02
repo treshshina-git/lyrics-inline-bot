@@ -37,7 +37,7 @@ class GeniusService:
 
         for item in hits:
             result = item.get("result", {})
-
+            print(result)
             if not result:
                 continue
 
