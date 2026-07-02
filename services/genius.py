@@ -106,7 +106,7 @@ class GeniusService:
         )
 
         return songs
-        @retry(
+    @retry(
         stop=stop_after_attempt(settings.genius.retries),
         wait=wait_fixed(settings.genius.retry_delay),
         retry=retry_if_exception_type(Exception),
