@@ -70,7 +70,7 @@ async def inline_query_handler(
                 ),
                 reply_markup=InlineKeyboardMarkup([]),
             )
-        )
+        ) 
     try:
         await update.inline_query.answer(
             results=results,
