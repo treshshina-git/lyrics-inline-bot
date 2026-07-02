@@ -1,0 +1,1 @@
+"""Telegram Inline Lyrics Bot."""

@@ -1,47 +1,15 @@
-from models.song import Song
-from services.cache import Cache
+from bot.services.cache import TTLCache
 
 
-def make_song(song_id: int = 1) -> Song:
-    return Song(
-        id=song_id,
-        title="Yesterday",
-        artist="The Beatles",
-        url="https://genius.com/The-beatles-yesterday-lyrics",
-    )
+def test_cache_set_get():
+    cache = TTLCache[int](ttl=1)
+
+    cache.set("a", 123)
+    assert cache.get("a") == 123
 
 
-def test_search_cache():
-    cache = Cache()
+def test_cache_expiry():
+    cache = TTLCache[int](ttl=0)
 
-    songs = [make_song()]
-
-    cache.search.set("yesterday", songs)
-
-    result = cache.search.get("yesterday")
-
-    assert result == songs
-
-
-def test_song_cache():
-    cache = Cache()
-
-    song = make_song()
-
-    cache.songs.set(song)
-
-    result = cache.songs.get(song.id)
-
-    assert result == song
-
-
-def test_cache_clear():
-    cache = Cache()
-
-    cache.search.set("abc", [make_song()])
-    cache.songs.set(make_song())
-
-    cache.clear()
-
-    assert cache.search.get("abc") is None
-    assert cache.songs.get(1) is None
+    cache.set("a", 123)
+    assert cache.get("a") is None
