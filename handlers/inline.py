@@ -71,7 +71,7 @@ async def inline_query_handler(
                 reply_markup=InlineKeyboardMarkup([]),
             )
         )
-            try:
+    try:
         await update.inline_query.answer(
             results=results,
             cache_time=60,
