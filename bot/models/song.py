@@ -8,7 +8,6 @@ class Song:
     id: int
     title: str
     artist: str
-    lyrics: str
     url: str
     thumbnail: str | None = None
     album: str | None = None
