@@ -1,1 +1,1 @@
-"""Telegram Inline Lyrics Bot."""
+"""Utilities package."""

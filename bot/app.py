@@ -38,11 +38,11 @@ def create_application() -> Application:
 def main() -> None:
     setup_logging()
 
-    application = create_application()
+    app = create_application()
 
-    logger.info("Starting webhook mode...")
+    logger.info("Starting webhook bot...")
 
-    application.run_webhook(
+    app.run_webhook(
         listen="0.0.0.0",
         port=settings.port,
         url_path=settings.bot_token,

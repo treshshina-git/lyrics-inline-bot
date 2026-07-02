@@ -1,4 +1,1 @@
-"""
-External services layer.
-"""
-
+"""Services package."""
