@@ -125,7 +125,7 @@ class GeniusService:
         self,
         song_id: int,
     ) -> Song | None:
-        cached = cache.songs.get(song_id)
+        cached = cache.songs.get(song_id) 
 
         if cached is not None:
             logger.info(
