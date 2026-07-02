@@ -7,6 +7,7 @@ from dataclasses import dataclass
 class Song:
     id: int
     title: str
+    lyrics: str | None
     artist: str
     url: str
     thumbnail: str | None = None
