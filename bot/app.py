@@ -22,35 +22,30 @@ logger = logging.getLogger(__name__)
 
 
 def create_application() -> Application:
-    application = (
-        Application.builder()
-        .token(settings.bot_token)
-        .build()
-    )
+    app = Application.builder().token(settings.bot_token).build()
 
-    # commands
-    application.add_handler(CommandHandler("start", start_handler))
-    application.add_handler(CommandHandler("help", help_handler))
-    application.add_handler(CommandHandler("health", health_handler))
-    application.add_handler(CommandHandler("version", version_handler))
+    app.add_handler(CommandHandler("start", start_handler))
+    app.add_handler(CommandHandler("help", help_handler))
+    app.add_handler(CommandHandler("health", health_handler))
+    app.add_handler(CommandHandler("version", version_handler))
+    app.add_handler(InlineQueryHandler(inline_query_handler))
 
-    # inline
-    application.add_handler(InlineQueryHandler(inline_query_handler))
+    app.add_error_handler(error_handler)
 
-    # errors
-    application.add_error_handler(error_handler)
-
-    return application
+    return app
 
 
 def main() -> None:
     setup_logging()
 
-    logger.info("Starting Telegram Inline Lyrics Bot...")
-
     application = create_application()
 
-    application.run_polling(
-        allowed_updates=["inline_query", "message"],
+    logger.info("Starting webhook mode...")
+
+    application.run_webhook(
+        listen="0.0.0.0",
+        port=settings.port,
+        url_path=settings.bot_token,
+        webhook_url=f"{settings.webhook_url}/{settings.bot_token}",
         drop_pending_updates=True,
     )
