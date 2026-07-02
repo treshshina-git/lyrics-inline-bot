@@ -142,10 +142,7 @@ class GeniusService:
             raise GeniusSearchError(str(exc)) from exc
 
         song_data = response.get("song")
-        logger.info(
-            "Сонг: %s",
-            song_data,
-        )
+        print("SONG DATA:", song_data)
         if not song_data:
             return None
 
