@@ -7,6 +7,7 @@ from telegram import InputTextMessageContent
 from telegram import Update
 from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
+from bot.services.lrclib import get_lyrics
 
 from bot.services.genius import genius_api
 from bot.services.cache import TTLCache
@@ -48,7 +49,7 @@ async def inline_query_handler(
 
     for song in songs:
         
-        #message = await format_song_inline(song)
+        message = await get_lyrics(song.artist, song.title)
         #print(f" 333inline_query_handler: {song.title} - {song.artist} -> {message}")  
 
         results.append(
