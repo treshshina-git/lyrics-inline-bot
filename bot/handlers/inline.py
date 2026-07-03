@@ -3,6 +3,8 @@ from __future__ import annotations
 from telegram import (
     InlineQueryResultArticle,
     InputTextMessageContent,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
     Update,
 )
 from telegram.ext import ContextTypes
@@ -31,7 +33,16 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         # store meta for later lyrics request in chosen handler
         cache.set(str(song.id), {"artist": song.artist, "title": song.title})
 
-        # We intentionally do not show extra buttons.
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "📜 Lyrics",
+                        callback_data=f"songlyrics:{song.id}",
+                    )
+                ]
+            ]
+        )
 
         results.append(
             InlineQueryResultArticle(
@@ -41,7 +52,7 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
                 input_message_content=InputTextMessageContent(
                     f"🎵 {song.title} — {song.artist}"
                 ),
-                reply_markup=None,
+                reply_markup=keyboard,
             )
         )
 
