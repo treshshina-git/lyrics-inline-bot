@@ -3,7 +3,7 @@ from __future__ import annotations
 import httpx
 from bot.config import settings
 from bot.models.song import Song
-from lrclib import get_lyrics
+from .lrclib import get_lyrics
 
 class GeniusAPI:
     def __init__(self) -> None:
