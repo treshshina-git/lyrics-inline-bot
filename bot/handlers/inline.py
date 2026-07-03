@@ -17,7 +17,6 @@ from bot.services.cache import TTLCache
 cache = TTLCache[dict](ttl=600)
 
 
-
 async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = (update.inline_query.query or "").strip()
 
