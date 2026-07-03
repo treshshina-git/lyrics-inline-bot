@@ -30,7 +30,7 @@ class GeniusAPI:
         #artist=results[0].get("primary_artist", {}).get("name", "") if results else None,
         #title=results[0].get("title", "") if results else None,
         #lyrics = await get_lyrics(artist, title) if results else None  
-        print(f"search: {query} -> {hits}")
+        #print(f"search: {query} -> {hits}")
         for item in hits[:limit]:
             result = item.get("result", {})
             
@@ -50,14 +50,14 @@ class GeniusAPI:
         return results
 
     async def get_song_lrc(self, title: str, artist: str) -> str | None:
-        print(f"get_song_lrc: {title} - {artist} -> 1")
+        #print(f"get_song_lrc: {title} - {artist} -> 1")
         # Используем lrclib для получения текста песни
         async with httpx.AsyncClient(timeout=10) as client:
             lyrics = await get_lyrics(artist, title)
             if lyrics is None:
                 return None
             else:
-                print(f" get_song_lrc: {title} - {artist} -> {lyrics}")
+                #print(f" get_song_lrc: {title} - {artist} -> {lyrics}")
                 data = lyrics
                 return lyrics
             
