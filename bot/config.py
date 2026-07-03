@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 @dataclass(frozen=True, slots=True)
 class Settings:
     bot_token: str
