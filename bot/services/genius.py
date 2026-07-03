@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import httpx
+import httpx, json
 from bot.config import settings
 from bot.models.song import Song
 from .lrclib import get_lyrics
@@ -50,6 +50,8 @@ class GeniusAPI:
         return results
 
     async def get_song_lrc(self, title: str, artist: str) -> str | None:
+        print(f"get_song_lrc: {title} - {artist} -> 1")
+        # Используем lrclib для получения текста песни
         async with httpx.AsyncClient(timeout=10) as client:
             lyrics = await get_lyrics(artist, title)
             if lyrics is None:
