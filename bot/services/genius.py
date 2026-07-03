@@ -59,6 +59,7 @@ class GeniusAPI:
             #data = r.json()
 
             song = lyrics
+            print(f"get_song_lrc: {title} - {artist} -> {song}")
             if not song:
                 return None
 
