@@ -28,10 +28,10 @@ class GeniusAPI:
         results: list[Song] = []
     
         #id=result.get("id", 0),
-        artist=results[0].get("primary_artist", {}).get("name", "") if results else None,
-        title=results[0].get("title", "") if results else None,
-        lyrics = await get_lyrics(artist, title) if results else None  
-        print(f"search: {query} -> {lyrics}")
+        #artist=results[0].get("primary_artist", {}).get("name", "") if results else None,
+        #title=results[0].get("title", "") if results else None,
+        #lyrics = await get_lyrics(artist, title) if results else None  
+        print(f"search: {query} -> {hits}")
         for item in hits[:limit]:
             result = item.get("result", {})
             
@@ -39,7 +39,8 @@ class GeniusAPI:
                 Song(
                     id=result.get("id", 0),
                     title=result.get("title", ""),
-                    lyrics=lyrics.get("lyrics", {}).get("plain", None) if lyrics else None,
+                    lyrics=await self.get_song_lrc(result.get("title", ""), result.get("primary_artist", {}).get("name", "")),
+                    release_date=result.get("release_date", ""),
                     album=result.get("album", {}).get("name", ""),
                     artist=result.get("primary_artist", {}).get("name", ""),
                     url=result.get("url", ""),
