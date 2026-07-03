@@ -8,7 +8,7 @@ from telegram import Update
 from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
 
-from bot.services.genius import genius_service
+from bot.services.genius import genius_api
 from bot.services.cache import TTLCache
 from bot.services.rate_limiter import inline_rate_limiter
 from bot.utils.validators import is_valid_query
@@ -41,7 +41,7 @@ async def inline_query_handler(
     if cached:
         songs = cached
     else:
-        songs = await genius_service.search(query)
+        songs = await genius_api.search(query)
         cache.set(cache_key, songs)
 
     results: list[InlineQueryResultArticle] = []
