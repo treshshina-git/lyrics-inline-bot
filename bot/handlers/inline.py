@@ -47,7 +47,9 @@ async def inline_query_handler(
     results: list[InlineQueryResultArticle] = []
 
     for song in songs:
-        message = format_song_inline(song)
+        
+        message = await format_song_inline(song)
+        print(f"inline_query_handler: {song.title} - {song.artist} -> {message}")  
 
         results.append(
             InlineQueryResultArticle(
@@ -57,7 +59,7 @@ async def inline_query_handler(
                 input_message_content=InputTextMessageContent(
                     message_text=message,
                     parse_mode=ParseMode.HTML,
-                    disable_web_page_preview=False,
+                    disable_web_page_preview=True,
                 ),
             )
         )
