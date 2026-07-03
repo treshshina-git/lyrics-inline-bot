@@ -16,7 +16,7 @@ class GeniusService:
         self._client = lyricsgenius.Genius(
             settings.genius_access_token,
             verbose=False,
-            remove_section_headers=True,
+            remove_section_headers=False,
             skip_non_songs=True,
             timeout=10,
         )
@@ -39,7 +39,7 @@ class GeniusService:
             result = item.get("result", {})
             if not result:
                 continue
-
+            print(result)
             primary_artist = result.get("primary_artist", {}) or {}
 
             results.append(
