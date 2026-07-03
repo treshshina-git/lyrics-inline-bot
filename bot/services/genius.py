@@ -26,17 +26,18 @@ class GeniusAPI:
         hits = data.get("response", {}).get("hits", [])
 
         results: list[Song] = []
-
+    
+        #id=result.get("id", 0),
+        lyrics = await get_lyrics(result.get("primary_artist", {}).get("name", ""), result.get("title", ""))   
+        print(f"search: {query} -> {lyrics}")
         for item in hits[:limit]:
             result = item.get("result", {})
-            #title=result.get("title", ""),
-            #artist=result.get("primary_artist", {}).get("name", ""),
-            #id=result.get("id", 0),
+            
             results.append(
                 Song(
                     id=result.get("id", 0),
                     title=result.get("title", ""),
-                    lyrics= "",
+                    lyrics=lyrics.get("lyrics", {}).get("plain", ""),
                     album=result.get("album", {}).get("name", ""),
                     artist=result.get("primary_artist", {}).get("name", ""),
                     url=result.get("url", ""),
