@@ -34,6 +34,19 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
     for song in songs:
         cache.set(str(song.id), {"artist": song.artist, "title": song.title})
 
+        # Вставляем inline-клавиатуру, чтобы после выбора можно было нажать кнопку
+        # и обработчик перешёл в callback_handler (data: songlyrics:{id}).
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "📜 Lyrics",
+                        callback_data=f"songlyrics:{song.id}",
+                    )
+                ]
+            ]
+        )
+
         results.append(
             InlineQueryResultArticle(
                 id=str(song.id),
@@ -42,6 +55,7 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
                 input_message_content=InputTextMessageContent(
                     f"🎵 {song.title} — {song.artist}"
                 ),
+                reply_markup=keyboard,
             )
         )
 
