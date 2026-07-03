@@ -8,7 +8,7 @@ async def format_song_inline(song: Song) -> str:
 
     title = safe_title(song.title)
     artist = safe_description(song.artist)
-    #print(f"format_song_inline: {title} - {artist} -> lyricser")
+    print(f"format_song_inline: {title} - {artist} -> lyricser")
     #lyricser = await genius_api.get_song_lrc(title, artist)
     #if lyricser is None:
     #    lyricser = "Lyrics not found"
