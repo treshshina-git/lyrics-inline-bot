@@ -39,7 +39,7 @@ class GeniusAPI:
                 Song(
                     id=result.get("id", 0),
                     title=result.get("title", ""),
-                    lyrics=await self.get_song_lrc(result.get("title", ""), result.get("primary_artist", {}).get("name", "")),
+                    lyrics=none,  # lyrics will be fetched separately
                     release_date=result.get("release_date", ""),
                     album=result.get("album", {}).get("name", ""),
                     artist=result.get("primary_artist", {}).get("name", ""),
