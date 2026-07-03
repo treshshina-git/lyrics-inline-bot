@@ -70,3 +70,4 @@ async def inline_query_handler(
         cache_time=30,
         is_personal=True,
     )
+    
