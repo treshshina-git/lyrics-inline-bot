@@ -33,10 +33,10 @@ def create_application() -> Application:
     app.add_handler(CommandHandler("health", health_handler))
     app.add_handler(CommandHandler("version", version_handler))
     app.add_handler(InlineQueryHandler(inline_query_handler))
-
+    app.add_handler(ChosenInlineResultHandler(chosen_inline_result_handler))
     # handle chosen inline result to fetch and send lyrics
     #app.add_handler(InlineQueryHandler(chosen_inline_result_handler))
-    app.add_handler(ChosenInlineResultHandler(chosen_inline_result_handler))
+    #app.add_handler(ChosenInlineResultHandler(chosen_inline_result_handler))
 
     app.add_error_handler(error_handler)
 

@@ -3,6 +3,8 @@ from __future__ import annotations
 from telegram import (
     InlineQueryResultArticle,
     InputTextMessageContent,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
     Update,
 )
 from telegram.ext import ContextTypes
@@ -25,13 +27,28 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
 
     songs = await genius_api.search(query)
 
-    results = []
+    # IMPORTANT:
+    # inline -> user chooses a result -> Telegram sends message immediately from input_message_content.
+    # Поэтому lyrics нужно вставить прямо в input_message_content, без callback.
+    results: list[InlineQueryResultArticle] = []
 
     for song in songs:
-        # store meta for later lyrics request in chosen handler
-        cache.set(str(song.id), {"artist": song.artist, "title": song.title})
+        lyrics_text = None
+        try:
+            from bot.services.lrclib import get_lyrics
 
-        # We intentionally do not show extra buttons.
+            lyrics_text = await get_lyrics(artist=song.artist, title=song.title)
+        except Exception:
+            lyrics_text = None
+
+        if not lyrics_text:
+            lyrics_text = "⚠️ Не удалось найти текст песни."
+
+        # Можно дополнительно сохранить meta, но уже не обязательно.
+        cache.set(
+            str(song.id),
+            {"artist": song.artist, "title": song.title},
+        )
 
         results.append(
             InlineQueryResultArticle(
@@ -39,9 +56,8 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
                 title=song.title,
                 description=song.artist,
                 input_message_content=InputTextMessageContent(
-                    f"🎵 {song.title} — {song.artist}"
+                    f"🎵 {song.title} — {song.artist}\n\n{lyrics_text}"
                 ),
-                reply_markup=None,
             )
         )
 

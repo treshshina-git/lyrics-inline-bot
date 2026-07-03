@@ -16,7 +16,51 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     if not query.data:
         return
 
+    if query.data.startswith("songlyrics:"):
+        song_id = int(query.data.split(":")[1])
+
+        cached = cache.get(str(song_id))
+        if cached:
+            song = cached
+        else:
+            song = await genius_api.get_song(song_id)
+            if not song:
+                await query.edit_message_text("❌ Song not found")
+                return
+            cache.set(str(song_id), song)
+
+        # fetch full lyrics via lrclib
+        from bot.services.lrclib import get_lyrics
+
+        lyrics = await get_lyrics(artist=song.artist, title=song.title)
+        lyrics_text = lyrics or "⚠️ Не удалось найти текст песни."
+
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "🔁 Refresh",
+                        callback_data=f"songlyrics:{song_id}",
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🔗 Open on Genius",
+                        url=song.url,
+                    )
+                ],
+            ]
+        )
+
+        await query.edit_message_text(
+            text=lyrics_text,
+            disable_web_page_preview=True,
+            reply_markup=keyboard,
+        )
+        return
+
     if query.data.startswith("song:"):
+
         song_id = int(query.data.split(":")[1])
 
         cached = cache.get(str(song_id))
