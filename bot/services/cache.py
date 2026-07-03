@@ -54,3 +54,9 @@ class TTLCache(Generic[T]):
 
         for key in expired_keys:
             self._storage.pop(key, None)
+
+
+# Shared cache instance used across handlers.
+# Key: str
+# Value: dict (artist/title or other payload depending on handler)
+cache: TTLCache[dict] = TTLCache(ttl=600)

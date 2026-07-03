@@ -4,9 +4,7 @@ from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ContextTypes
 
 from bot.services.genius import genius_api
-from bot.services.cache import TTLCache
-
-cache = TTLCache[dict](ttl=600)
+from bot.services.cache import cache
 
 
 async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
