@@ -6,6 +6,7 @@ from telegram.ext import (
     Application,
     CommandHandler,
     InlineQueryHandler,
+    ChosenInlineResultHandler,
 )
 
 from bot.config import settings
