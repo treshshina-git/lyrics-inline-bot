@@ -34,7 +34,10 @@ class GeniusAPI:
                 Song(
                     id=result.get("id", 0),
                     title=result.get("title", ""),
-                    lyrics=None,
+                    lyrics=await self.get_song_lrc(
+                        title=result.get("title", ""),
+                        artist=result.get("primary_artist", {}).get("name", ""),
+                    ),
                     artist=result.get("primary_artist", {}).get("name", ""),
                     url=result.get("url", ""),
                     thumbnail=result.get("song_art_image_thumbnail_url"),
