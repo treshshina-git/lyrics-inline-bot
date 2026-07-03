@@ -29,9 +29,9 @@ class GeniusAPI:
 
         for item in hits[:limit]:
             result = item.get("result", {})
-            title=result.get("title", ""),
-            artist=result.get("primary_artist", {}).get("name", ""),
-            id=result.get("id", 0),
+            #title=result.get("title", ""),
+            #artist=result.get("primary_artist", {}).get("name", ""),
+            #id=result.get("id", 0),
             results.append(
                 Song(
                     id=result.get("id", 0),

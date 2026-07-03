@@ -53,7 +53,6 @@ async def inline_query_handler(
             InlineQueryResultArticle(
                 id=str(song.id),
                 title=song.title,
-                lyrics=song.lyrics,
                 description=song.artist,
                 input_message_content=InputTextMessageContent(
                     message_text=message,
