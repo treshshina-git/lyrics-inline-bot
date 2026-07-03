@@ -49,7 +49,7 @@ async def inline_query_handler(
 
     for song in songs:
         
-        message = await get_lyrics(song.artist, song.title)
+        #message = await get_lyrics(song.artist, song.title)
         #print(f" 333inline_query_handler: {song.title} - {song.artist} -> {message}")  
 
         results.append(

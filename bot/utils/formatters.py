@@ -35,5 +35,5 @@ async def format_song_inline(song: Song) -> str:
 
     #if song.url:
     #    parts.append(f"\n🔗 {song.url}")
-    print(f" parts : {parts}")
+    #print(f" parts : {parts}")
     return "\n".join(parts)
