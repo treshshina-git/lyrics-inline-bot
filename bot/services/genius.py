@@ -28,7 +28,7 @@ class GeniusAPI:
         results: list[Song] = []
     
         #id=result.get("id", 0),
-        lyrics = await get_lyrics(result.get("primary_artist", {}).get("name", ""), result.get("title", ""))   
+        lyrics = await get_lyrics(results[0].artist, results[0].title) if results else None  
         print(f"search: {query} -> {lyrics}")
         for item in hits[:limit]:
             result = item.get("result", {})
