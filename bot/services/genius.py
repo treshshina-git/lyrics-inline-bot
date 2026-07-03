@@ -37,7 +37,7 @@ class GeniusAPI:
                 Song(
                     id=result.get("id", 0),
                     title=result.get("title", ""),
-                    lyrics=lyrics.get("lyrics", {}).get("plain", ""),
+                    lyrics=lyrics.get("lyrics", {}).get("plain", None) if lyrics else None,
                     album=result.get("album", {}).get("name", ""),
                     artist=result.get("primary_artist", {}).get("name", ""),
                     url=result.get("url", ""),
