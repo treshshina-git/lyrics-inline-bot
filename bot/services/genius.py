@@ -33,7 +33,7 @@ class GeniusAPI:
         #print(f"search: {query} -> {hits}")
         for item in hits[:limit]:
             result = item.get("result", {})
-            
+            print(f"search: {query} -> {result.get('title', '')} - {result.get('primary_artist', {}).get('name', '')}")
             results.append(
                 Song(
                     id=result.get("id", 0),
@@ -52,14 +52,14 @@ class GeniusAPI:
     async def get_song_lrc(self, title: str, artist: str) -> str | None:
         #print(f"get_song_lrc: {title} - {artist} -> 1")
         # Используем lrclib для получения текста песни
-        async with httpx.AsyncClient(timeout=10) as client:
-            lyrics = await get_lyrics(artist, title)
-            if lyrics is None:
-                return None
-            else:
-                #print(f" get_song_lrc: {title} - {artist} -> {lyrics}")
-                data = lyrics
-                return lyrics
+
+        lyrics = await get_lyrics(artist, title)
+        if lyrics is None:
+            return None
+        else:
+            #print(f" get_song_lrc: {title} - {artist} -> {lyrics}")
+            data = lyrics
+            #return lyrics
             
             #lyrics.raise_for_status()
 
@@ -77,7 +77,7 @@ class GeniusAPI:
             #if not song:
             #    return None
 
-            #return song
+        return lyrics
     
 
 
