@@ -37,7 +37,6 @@ class GeniusService:
 
         for item in hits:
             result = item.get("result", {})
-            print(result)
             if not result:
                 continue
 
@@ -49,6 +48,7 @@ class GeniusService:
                     title=result.get("title", "Unknown"),
                     artist=primary_artist.get("name", "Unknown"),
                     url=result.get("url", ""),
+                    lyrics=result.get("lyrics", None),
                     thumbnail=result.get("song_art_image_thumbnail_url"),
                     album=result.get("album", {}).get("name") if result.get("album") else None,
                     release_date=result.get("release_date_for_display"),
