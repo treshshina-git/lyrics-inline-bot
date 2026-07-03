@@ -70,7 +70,7 @@ class GeniusAPI:
             if not song:
                 return None
 
-        return song.get("lyrics", {}).get("plain", None)
+        return song
     
 
 
