@@ -29,15 +29,15 @@ class GeniusAPI:
 
         for item in hits[:limit]:
             result = item.get("result", {})
-
+            title=result.get("title", ""),
+            artist=result.get("primary_artist", {}).get("name", ""),
+            id=result.get("id", 0),
             results.append(
                 Song(
                     id=result.get("id", 0),
                     title=result.get("title", ""),
-                    lyrics=await self.get_song_lrc(
-                        title=result.get("title", ""),
-                        artist=result.get("primary_artist", {}).get("name", ""),
-                    ),
+                    lyrics= "",
+                    album=result.get("album", {}).get("name", ""),
                     artist=result.get("primary_artist", {}).get("name", ""),
                     url=result.get("url", ""),
                     thumbnail=result.get("song_art_image_thumbnail_url"),
@@ -48,7 +48,7 @@ class GeniusAPI:
 
     async def get_song_lrc(self, title: str, artist: str) -> str | None:
         async with httpx.AsyncClient(timeout=10) as client:
-            lyrics = await get_lyrics(artist=artist, title=title)
+            lyrics = await get_lyrics(artist, title)
 
             print(f"get_song_lrc: {title} - {artist} -> {lyrics}")
             #lyrics.raise_for_status()
