@@ -10,7 +10,7 @@ async def format_song_inline(song: Song) -> str:
     artist = safe_description(song.artist)
 
     lyricser = await get_lyrics(artist, title)
-    print(f"format_song_inline: {title} - {artist} -> lyricser")
+    print(f"format_song_inline: {lyricser}")
     #if lyricser is None:
     #    lyricser = "Lyrics not found"
     #else:
