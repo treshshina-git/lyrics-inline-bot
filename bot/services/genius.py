@@ -3,7 +3,7 @@ from __future__ import annotations
 import httpx
 from bot.config import settings
 from bot.models.song import Song
-
+from lrclib import get_lyrics
 
 class GeniusAPI:
     def __init__(self) -> None:
@@ -51,11 +51,17 @@ class GeniusAPI:
 
     async def get_song_lrc(self, title: str, artist: str) -> str | None:
         async with httpx.AsyncClient(timeout=10) as client:
-            #lyrics = await get_lyrics(artist, title)
-
-            #print(f"get_song_lrc: {title} - {artist} -> {lyrics}")
+            lyrics = await get_lyrics(artist, title)
+            if lyrics is None:
+                return None
+            else:
+                print(f"get_song_lrc: {title} - {artist} -> {lyrics}")
+                data = lyrics.json()
+                return lyrics
+            
             #lyrics.raise_for_status()
-            #data = lyrics.json()
+
+                
 
             #r = await client.get(
             #    f"{self.base_url}/songs/{song_id}",
@@ -65,7 +71,7 @@ class GeniusAPI:
             #data = r.json()
 
             #song = lyrics
-            print(f"get_song_lrc: {title} - {artist} -> 7")
+        print(f"get_song_lrc: {data} -> 7")
             #if not song:
             #    return None
 
