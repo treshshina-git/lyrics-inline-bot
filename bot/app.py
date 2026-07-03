@@ -10,6 +10,8 @@ from telegram.ext import (
 
 from bot.config import settings
 from bot.handlers.inline import inline_query_handler
+from bot.handlers.chosen import chosen_inline_result_handler
+
 from bot.handlers.start import start_handler
 from bot.handlers.help import help_handler
 from bot.handlers.health import health_handler
@@ -30,6 +32,10 @@ def create_application() -> Application:
     app.add_handler(CommandHandler("health", health_handler))
     app.add_handler(CommandHandler("version", version_handler))
     app.add_handler(InlineQueryHandler(inline_query_handler))
+
+    # handle chosen inline result to fetch and send lyrics
+    app.add_handler(chosen_inline_result_handler)
+
 
     app.add_error_handler(error_handler)
 
