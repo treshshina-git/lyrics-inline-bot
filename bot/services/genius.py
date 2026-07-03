@@ -33,7 +33,7 @@ class GeniusAPI:
         #print(f"search: {query} -> {hits}")
         for item in hits[:limit]:
             result = item.get("result", {})
-            print(f"search: {query} -> {result.get('title', '')} - {result.get('primary_artist', {}).get('name', '')}")
+            #print(f"search: {query} -> {result.get('title', '')} - {result.get('primary_artist', {}).get('name', '')}")
             results.append(
                 Song(
                     id=result.get("id", 0),

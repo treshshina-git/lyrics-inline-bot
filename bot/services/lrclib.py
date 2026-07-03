@@ -29,7 +29,7 @@ async def get_lyrics(artist, title):
         if not results:
             return None
 
-        #print(f"get_lyrics: {results}")
+        print(f"get_lyrics: {results}")
         # ищем наиболее похожее совпадение
         for song in results:
 
