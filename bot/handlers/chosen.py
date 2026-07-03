@@ -24,7 +24,7 @@ async def chosen_inline_result_handler(
     Can be extended later for analytics,
     statistics or caching.
     """
-
+    print("chosen_inline_result_handler: called")
     result = update.chosen_inline_result
 
     if result is None:
