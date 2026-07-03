@@ -26,28 +26,13 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
 
     songs = await genius_api.search(query)
 
-    # IMPORTANT:
-    # inline -> user chooses a result -> Telegram sends message immediately from input_message_content.
-    # Поэтому lyrics нужно вставить прямо в input_message_content, без callback.
+    # Надёжная схема: inline отдаёт метаданные.
+    # После выбора Telegram вызывает chosen_inline_result_handler,
+    # который уже запрашивает lyrics через bot/services/lrclib.py:get_lyrics().
     results: list[InlineQueryResultArticle] = []
 
     for song in songs:
-        lyrics_text = None
-        try:
-            from bot.services.lrclib import get_lyrics
-
-            lyrics_text = await get_lyrics(artist=song.artist, title=song.title)
-        except Exception:
-            lyrics_text = None
-
-        if not lyrics_text:
-            lyrics_text = "⚠️ Не удалось найти текст песни."
-
-        # Можно дополнительно сохранить meta, но уже не обязательно.
-        cache.set(
-            str(song.id),
-            {"artist": song.artist, "title": song.title},
-        )
+        cache.set(str(song.id), {"artist": song.artist, "title": song.title})
 
         results.append(
             InlineQueryResultArticle(
@@ -55,7 +40,7 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
                 title=song.title,
                 description=song.artist,
                 input_message_content=InputTextMessageContent(
-                    f"🎵 {song.title} — {song.artist}\n\n{lyrics_text}"
+                    f"🎵 {song.title} — {song.artist}"
                 ),
             )
         )
