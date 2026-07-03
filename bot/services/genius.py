@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import httpx, json
+import httpx
 from bot.config import settings
 from bot.models.song import Song
 from .lrclib import get_lyrics
@@ -58,7 +58,7 @@ class GeniusAPI:
                 return None
             else:
                 print(f" get_song_lrc: {title} - {artist} -> {lyrics}")
-                data = lyrics.json()
+                data = lyrics
                 return lyrics
             
             #lyrics.raise_for_status()

@@ -55,7 +55,7 @@ class SongPaginator:
                 row.append(
                     InlineKeyboardButton(
                         text=f"{song.title} — {song.artist}",
-                        callback_data=song.to_callback_data(),
+                       # callback_data=song.to_callback_data(),
                     )
                 )
 
