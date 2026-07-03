@@ -9,7 +9,7 @@ def format_song_inline(song: Song) -> str:
     artist = safe_description(song.artist)
 
     parts = [
-        f"🎵 <b>{title}</b>",
+        f"2 <b>{title}</b>",
         f"👤 {artist}",
     ]
 
