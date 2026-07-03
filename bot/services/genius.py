@@ -55,7 +55,7 @@ class GeniusAPI:
             if lyrics is None:
                 return None
             else:
-                print(f"get_song_lrc: {title} - {artist} -> {lyrics}")
+                print(f" get_song_lrc: {title} - {artist} -> {lyrics}")
                 data = lyrics.json()
                 return lyrics
             
