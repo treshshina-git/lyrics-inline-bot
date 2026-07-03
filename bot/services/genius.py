@@ -52,9 +52,9 @@ class GeniusAPI:
 
     async def get_song_lrc(self, title: str, artist: str) -> str | None:
         async with httpx.AsyncClient(timeout=10) as client:
-            lyrics = await get_lyrics(artist, title)
+            #lyrics = await get_lyrics(artist, title)
 
-            print(f"get_song_lrc: {title} - {artist} -> {lyrics}")
+            #print(f"get_song_lrc: {title} - {artist} -> {lyrics}")
             #lyrics.raise_for_status()
             #data = lyrics.json()
 
@@ -65,12 +65,12 @@ class GeniusAPI:
             #r.raise_for_status()
             #data = r.json()
 
-            song = lyrics
-            print(f"get_song_lrc: {title} - {artist} -> {song}")
-            if not song:
-                return None
+            #song = lyrics
+            print(f"get_song_lrc: {title} - {artist} -> 7")
+            #if not song:
+            #    return None
 
-        return song
+            #return song
     
 
 
