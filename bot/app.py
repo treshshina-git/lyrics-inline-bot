@@ -34,7 +34,7 @@ def create_application() -> Application:
     app.add_handler(InlineQueryHandler(inline_query_handler))
 
     # handle chosen inline result to fetch and send lyrics
-    app.add_handler(chosen_inline_result_handler)
+    app.add_handler(InlineQueryHandler(chosen_inline_result_handler))
 
 
     app.add_error_handler(error_handler)
