@@ -3,7 +3,7 @@ from __future__ import annotations
 from bot.models.song import Song
 from bot.utils.text import safe_description, safe_title
 #from bot.services.genius import genius_api
-from bot.services.lrclib import get_lyrics
+#from bot.services.lrclib import get_lyrics
 async def format_song_inline(song: Song) -> str:
 
     title = safe_title(song.title)
@@ -35,5 +35,5 @@ async def format_song_inline(song: Song) -> str:
 
     #if song.url:
     #    parts.append(f"\n🔗 {song.url}")
-
+    print(f"parts: {parts}")
     return "\n".join(parts)

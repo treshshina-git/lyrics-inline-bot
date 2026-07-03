@@ -13,7 +13,7 @@ async def get_lyrics(artist, title):
     title = normalize(title)
 
     query = f"{artist} {title}"
-    print(f"get_lyrics: {artist} - {title} -> {query}")
+    #print(f"get_lyrics: {artist} - {title} -> {query}")
     async with aiohttp.ClientSession() as session:
 
         async with session.get(
@@ -29,7 +29,7 @@ async def get_lyrics(artist, title):
         if not results:
             return None
 
-        print(f"get_lyrics: {artist} - {title} -> {results}")
+        print(f"get_lyrics: {results}")
         # ищем наиболее похожее совпадение
         for song in results:
 
