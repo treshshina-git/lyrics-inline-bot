@@ -4,7 +4,7 @@ import httpx
 
 from bot.config import settings
 from bot.models.song import Song
-from lrclib import get_lyrics
+from .lrclib import get_lyrics
 
 class GeniusAPI:
     def __init__(self) -> None:
@@ -34,6 +34,10 @@ class GeniusAPI:
                 Song(
                     id=result.get("id", 0),
                     title=result.get("title", ""),
+                    lyrics=await get_lyrics(
+                        artist=result.get("primary_artist", {}).get("name", ""),
+                        title=result.get("title", "")
+                    ),
                     artist=result.get("primary_artist", {}).get("name", ""),
                     url=result.get("url", ""),
                     thumbnail=result.get("song_art_image_thumbnail_url"),
