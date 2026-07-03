@@ -10,6 +10,12 @@ from telegram import (
 from telegram.ext import ContextTypes
 
 from bot.services.genius import genius_api
+from bot.services.cache import TTLCache
+
+
+# NOTE: this cache is in-memory. If you deploy multiple instances, inline chosen may not find data.
+cache = TTLCache[dict](ttl=600)
+
 
 
 async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -24,7 +30,11 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
     results = []
 
     for song in songs:
+        # store meta for later lyrics request in chosen handler
+        cache.set(str(song.id), {"artist": song.artist, "title": song.title})
+
         keyboard = InlineKeyboardMarkup(
+
             [
                 [
                     InlineKeyboardButton(
@@ -52,3 +62,5 @@ async def inline_query_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         cache_time=30,
         is_personal=True,
     )
+
+
